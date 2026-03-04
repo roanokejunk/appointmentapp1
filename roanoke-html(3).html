@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Roanoke Junk Removal – Book a Service</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800&family=Karla:wght@400;600;700&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Karla',sans-serif;background:#f8faf8;min-height:100vh;padding:24px 16px;}
+h1{font-family:'Barlow Condensed',sans-serif;}
+h2{font-family:'Barlow Condensed',sans-serif;font-size:22px;color:#2D6A2D;margin-bottom:20px;}
+.card{background:#fff;border-radius:16px;box-shadow:0 4px 24px rgba(0,0,0,0.07);padding:28px 24px;max-width:600px;margin:0 auto;}
+.header{text-align:center;margin-bottom:28px;}
+.header h1{font-size:26px;color:#1a1a1a;}
+.header p{color:#6b7280;font-size:14px;margin-top:4px;}
+.logo{background:#2D6A2D;border-radius:10px;padding:6px 12px;display:inline-block;font-size:22px;margin-bottom:8px;}
+label{display:block;font-size:13px;font-weight:600;color:#1a1a1a;margin-bottom:5px;}
+input,select,textarea{width:100%;padding:10px 14px;border-radius:8px;border:1.5px solid #d1d5db;font-family:'Karla',sans-serif;font-size:14px;color:#1a1a1a;outline:none;background:#fff;transition:border 0.2s,box-shadow 0.2s;}
+input:focus,select:focus,textarea:focus{border-color:#2D6A2D;box-shadow:0 0 0 3px #f0f7f0;}
+.field{margin-bottom:16px;}
+.field .hint{font-size:12px;color:#6b7280;margin-bottom:5px;}
+.field .err{color:#dc2626;font-size:12px;margin-top:4px;}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}
+.btn{padding:12px 24px;border-radius:8px;border:none;font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:700;letter-spacing:0.05em;cursor:pointer;transition:filter 0.2s;}
+.btn:hover{filter:brightness(0.93);}
+.btn-green{background:#2D6A2D;color:#fff;}
+.btn-orange{background:#e8680a;color:#fff;box-shadow:0 4px 14px rgba(232,104,10,0.35);}
+.btn-gray{background:#fff;color:#6b7280;border:1.5px solid #d1d5db!important;font-family:'Karla',sans-serif;font-size:14px;font-weight:600;}
+.btn-nav{display:flex;justify-content:space-between;margin-top:28px;gap:12px;}
+.option-btn{padding:14px 16px;border:2px solid #d1d5db;border-radius:10px;background:#fff;cursor:pointer;text-align:left;display:flex;align-items:center;gap:12px;width:100%;margin-bottom:10px;transition:all 0.2s;font-family:'Karla',sans-serif;}
+.option-btn.selected{border-color:#2D6A2D;background:#f0f7f0;}
+.option-btn .radio{width:20px;height:20px;border-radius:50%;border:2px solid #d1d5db;background:#fff;flex-shrink:0;display:flex;align-items:center;justify-content:center;}
+.option-btn.selected .radio{border-color:#2D6A2D;background:#2D6A2D;}
+.option-btn.selected .radio::after{content:'';width:8px;height:8px;border-radius:50%;background:#fff;display:block;}
+.option-btn .otitle{font-weight:700;font-size:15px;color:#1a1a1a;}
+.option-btn .odesc{font-size:12px;color:#6b7280;}
+.size-btn{padding:16px 12px;border:2px solid #d1d5db;border-radius:10px;background:#fff;cursor:pointer;text-align:center;transition:all 0.2s;font-family:'Karla',sans-serif;}
+.size-btn.selected{border-color:#2D6A2D;background:#f0f7f0;}
+.size-btn .stitle{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:800;color:#1a1a1a;}
+.size-btn.selected .stitle{color:#2D6A2D;}
+.size-btn .sdesc{font-size:11px;color:#6b7280;margin-top:4px;}
+.day-btn{padding:14px 8px;border:2px solid #d1d5db;border-radius:10px;background:#fff;cursor:pointer;text-align:center;transition:all 0.2s;font-family:'Karla',sans-serif;}
+.day-btn.selected{border-color:#2D6A2D;background:#f0f7f0;}
+.day-btn .dnum{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:800;color:#1a1a1a;}
+.day-btn.selected .dnum{color:#2D6A2D;}
+.day-btn .dlabel{font-size:11px;color:#6b7280;}
+.day-btn .dprice{font-size:13px;font-weight:700;color:#e8680a;margin-top:4px;}
+.notice{border-radius:10px;padding:12px 16px;font-size:13px;line-height:1.6;}
+.notice-green{background:#f0f7f0;color:#1a4a1a;}
+.notice-yellow{background:#fffbeb;border:1px solid #fcd34d;color:#92400e;}
+.steps{display:flex;align-items:center;justify-content:center;margin-bottom:28px;}
+.step-dot{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;font-family:'Barlow Condensed',sans-serif;transition:all 0.3s;}
+.step-dot.done{background:#2D6A2D;color:#fff;}
+.step-dot.active{background:#2D6A2D;color:#fff;box-shadow:0 0 0 4px #f0f7f0;}
+.step-dot.todo{background:#e5e7eb;color:#9ca3af;}
+.step-line{width:20px;height:2px;margin:0 4px;transition:all 0.3s;}
+.step-line.done{background:#2D6A2D;}
+.step-line.todo{background:#e5e7eb;}
+.step-label{font-size:11px;margin:0 6px 0 4px;}
+.review-row{display:flex;padding:10px 0;border-bottom:1px solid #f4f4f4;gap:12px;}
+.review-row .rl{font-size:13px;color:#6b7280;width:120px;flex-shrink:0;}
+.review-row .rv{font-size:14px;color:#1a1a1a;font-weight:500;}
+.review-row .rv.hi{color:#2D6A2D;font-weight:700;}
+.photo-grid{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;}
+.photo-thumb{position:relative;}
+.photo-thumb img{width:64px;height:64px;object-fit:cover;border-radius:8px;border:1px solid #d1d5db;}
+.photo-thumb .del{position:absolute;top:-6px;right:-6px;width:20px;height:20px;border-radius:50%;background:#dc2626;border:none;color:#fff;font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;}
+.upload-zone{border:2px dashed #d1d5db;border-radius:10px;padding:18px 16px;text-align:center;cursor:pointer;color:#6b7280;font-size:13px;background:#fafafa;}
+.upload-zone:hover{border-color:#2D6A2D;background:#f0f7f0;}
+.success{max-width:500px;margin:0 auto;padding:48px 16px;text-align:center;}
+.success .check{width:72px;height:72px;border-radius:50%;background:#2D6A2D;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:36px;box-shadow:0 8px 24px rgba(45,106,45,0.3);}
+.hidden{display:none;}
+/* Admin */
+.tabs{display:flex;gap:4px;background:#f4f4f4;padding:4px;border-radius:10px;margin-bottom:24px;}
+.tab-btn{flex:1;padding:10px 8px;border-radius:8px;border:none;cursor:pointer;font-size:13px;font-weight:500;font-family:'Karla',sans-serif;transition:all 0.2s;background:transparent;color:#6b7280;}
+.tab-btn.active{background:#fff;color:#2D6A2D;font-weight:700;box-shadow:0 2px 8px rgba(0,0,0,0.08);}
+.booking-card{background:#fff;border-radius:12px;border:1px solid #d1d5db;overflow:hidden;margin-bottom:12px;}
+.booking-header{padding:14px 18px;cursor:pointer;display:flex;align-items:center;gap:12px;}
+.booking-body{border-top:1px solid #d1d5db;padding:16px 18px;background:#fafafa;}
+.badge{font-size:11px;font-weight:700;padding:2px 8px;border-radius:10px;text-transform:capitalize;}
+.badge-pending{background:#fffbeb;color:#d97706;}
+.badge-confirmed{background:#f0f7f0;color:#2D6A2D;}
+.badge-cancelled{background:#fef2f2;color:#dc2626;}
+.badge-completed{background:#f9fafb;color:#6b7280;}
+.filter-bar{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;}
+.filter-btn{padding:6px 14px;border-radius:20px;border:1.5px solid #d1d5db;background:#fff;color:#6b7280;font-weight:600;font-size:12px;cursor:pointer;font-family:'Karla',sans-serif;text-transform:capitalize;}
+.filter-btn.active{border-color:#2D6A2D;background:#f0f7f0;color:#2D6A2D;}
+.action-btn{padding:8px 16px;border-radius:8px;border:none;color:#fff;font-weight:700;font-size:13px;cursor:pointer;font-family:'Karla',sans-serif;margin-right:6px;margin-top:4px;}
+.stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px;}
+.stat-card{background:#fff;border-radius:12px;padding:16px;border:1px solid #d1d5db;text-align:center;}
+.stat-num{font-family:'Barlow Condensed',sans-serif;font-size:36px;font-weight:800;line-height:1;}
+.stat-label{font-size:12px;color:#6b7280;margin-top:4px;}
+.fleet-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;}
+.fleet-item{text-align:center;}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;}
+.cal-day{padding:8px 4px;border-radius:8px;text-align:center;min-height:52px;border:1px solid #f3f4f6;}
+.cal-day.today{border:2px solid #2D6A2D;background:#f0f7f0;}
+.cal-day.past{background:#f9fafb;}
+@media(max-width:480px){.grid2{grid-template-columns:1fr;}.step-label{display:none;}}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+// ── DATA ───────────────────────────────────────────────────────────────────
+const ADMIN_PW="RoanokeJunk2024!";
+const TOTAL=7;
+const PRICING={"15yd":{"1":300,"2":350,"7":375},"20yd":{"1":360,"2":390,"7":430}};
+const SIZES=[{id:"15yd",label:"15 Yard",desc:"Great for small cleanouts, garage, single room"},{id:"20yd",label:"20 Yard",desc:"Perfect for larger projects, full home cleanouts"}];
+const RENTAL_DAYS=[{d:1,l:"1 Day"},{d:2,l:"2 Days"},{d:7,l:"7 Days"}];
+const SERVICES=["Junk Removal","Dumpster Rental","Quote Request"];
+const SERVICE_DESC={"Junk Removal":"We haul it all away — furniture, appliances, debris & more","Dumpster Rental":"We drop off a dumpster, you fill it, we pick it up","Quote Request":"Not sure what you need? Get a free estimate, no commitment"};
+const REFERRALS=["Google Search","Facebook","Neighbor / Friend","Drove by","Other"];
+const TIME_SLOTS=[{v:"8am-10am",l:"8:00 AM – 10:00 AM"},{v:"10am-12pm",l:"10:00 AM – 12:00 PM"},{v:"12pm-2pm",l:"12:00 PM – 2:00 PM"},{v:"2pm-4pm",l:"2:00 PM – 4:00 PM"},{v:"4pm-6pm",l:"4:00 PM – 6:00 PM"},{v:"flexible",l:"Flexible — any time works"}];
+
+// ── STORAGE ────────────────────────────────────────────────────────────────
+function load(k){try{const v=localStorage.getItem(k);return v?JSON.parse(v):[];}catch{return[];}}
+function save(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}
+
+let rentals=load("rjr-rentals");
+let bookings=load("rjr-bookings");
+
+// ── HELPERS ────────────────────────────────────────────────────────────────
+function todayStr(){return new Date().toISOString().split("T")[0];}
+function addDays(d,n){const dt=new Date(d);dt.setDate(dt.getDate()+n);return dt.toISOString().split("T")[0];}
+function fmtDate(d){if(!d)return"—";return new Date(d+"T12:00:00").toLocaleDateString("en-US",{month:"short",day:"numeric",year:"numeric"});}
+function overlap(s1,e1,s2,e2){return s1<=e2&&e1>=s2;}
+function getAvail(date){
+  const out=rentals.filter(r=>r.status!=="cancelled"&&r.status!=="returned"&&overlap(r.startDate,r.endDate,date,date)).length;
+  return TOTAL-out;
+}
+function el(tag,attrs,children){
+  const elem=document.createElement(tag);
+  if(attrs)Object.entries(attrs).forEach(([k,v])=>{
+    if(k==="class")elem.className=v;
+    else if(k==="style")elem.style.cssText=v;
+    else if(k.startsWith("on"))elem.addEventListener(k.slice(2).toLowerCase(),v);
+    else elem.setAttribute(k,v);
+  });
+  if(children){
+    (Array.isArray(children)?children:[children]).forEach(c=>{
+      if(c===null||c===undefined)return;
+      elem.appendChild(typeof c==="string"?document.createTextNode(c):c);
+    });
+  }
+  return elem;
+}
+function div(cls,children,style){return el("div",{class:cls,...(style?{style}:{})},children);}
+function render(content){const app=document.getElementById("app");app.innerHTML="";app.appendChild(content);}
+
+// ── STEPS ──────────────────────────────────────────────────────────────────
+function makeSteps(current,labels){
+  const wrap=div("steps");
+  labels.forEach((lbl,i)=>{
+    const dot=div(i<current?"step-dot done":i===current?"step-dot active":"step-dot todo",[String(i<current?"✓":i+1)]);
+    const span=el("span",{class:`step-label`,style:`color:${i<=current?"#2D6A2D":"#6b7280"}`},[lbl]);
+    wrap.appendChild(dot);
+    wrap.appendChild(span);
+    if(i<labels.length-1){
+      wrap.appendChild(div(`step-line ${i<current?"done":"todo"}`));
+    }
+  });
+  return wrap;
+}
+
+// ── FIELD BUILDER ──────────────────────────────────────────────────────────
+function makeField(label,required,hint,inputEl,errId){
+  const wrap=div("field");
+  const lbl=el("label",{},[label+(required?" *":"")]);
+  if(required)lbl.querySelector||lbl.insertAdjacentHTML("beforeend","");
+  wrap.appendChild(lbl);
+  if(hint){const h=div("hint",[hint]);wrap.appendChild(h);}
+  wrap.appendChild(inputEl);
+  const errDiv=div("err hidden");
+  errDiv.id=errId||"";
+  wrap.appendChild(errDiv);
+  return wrap;
+}
+function makeInput(id,type,placeholder,value){
+  const inp=el("input",{type,placeholder,id,value:value||""});
+  return inp;
+}
+function makeSelect(id,options,value,placeholder){
+  const sel=el("select",{id});
+  sel.appendChild(el("option",{value:""},[placeholder||"Select..."]));
+  options.forEach(o=>{
+    const opt=el("option",{value:o.v||o},[o.l||o]);
+    if((o.v||o)===value)opt.selected=true;
+    sel.appendChild(opt);
+  });
+  return sel;
+}
+function makeTextarea(id,placeholder,value){
+  const ta=el("textarea",{id,placeholder,rows:"4",style:"resize:vertical;"},[value||""]);
+  return ta;
+}
+
+// ── FORM STATE ─────────────────────────────────────────────────────────────
+let form={name:"",phone:"",email:"",address:"",service:"",dumpsterSize:"",rentalDays:"",preferredDate:"",preferredTime:"",referral:"",notes:"",photos:[]};
+let step=0;
+
+function getForm(){
+  ["name","phone","email","address","referral","notes","preferredDate","preferredTime"].forEach(k=>{
+    const el=document.getElementById("f_"+k);
+    if(el)form[k]=el.value;
+  });
+}
+
+function showErr(id,msg){
+  const el=document.getElementById("err_"+id);
+  if(el){el.textContent=msg;el.classList.remove("hidden");}
+}
+function clearErrs(){
+  document.querySelectorAll(".err").forEach(e=>e.classList.add("hidden"));
+}
+
+function validate(){
+  getForm();
+  clearErrs();
+  let ok=true;
+  if(step===0){
+    if(!form.name.trim()){showErr("name","Name is required");ok=false;}
+    if(!form.phone.trim()){showErr("phone","Phone is required");ok=false;}
+    if(!form.email.trim()){showErr("email","Email is required");ok=false;}
+    else if(!/\S+@\S+\.\S+/.test(form.email)){showErr("email","Enter a valid email");ok=false;}
+    if(!form.address.trim()){showErr("address","Address is required");ok=false;}
+  }
+  if(step===1){
+    if(!form.service){showErr("service","Please select a service");ok=false;}
+    if(form.service==="Dumpster Rental"&&!form.dumpsterSize){showErr("dumpsterSize","Please select a size");ok=false;}
+    if(form.service==="Dumpster Rental"&&!form.rentalDays){showErr("rentalDays","Please select a rental period");ok=false;}
+  }
+  if(step===2){
+    if(!form.preferredDate){showErr("preferredDate","Please select a date");ok=false;}
+    if(!form.preferredTime){showErr("preferredTime","Please select a time");ok=false;}
+  }
+  return ok;
+}
+
+// ══════════════════════════════════════════════════════════════════════════
+// STEP 0 — CONTACT
+// ══════════════════════════════════════════════════════════════════════════
+function renderStep0(){
+  const wrap=document.createDocumentFragment();
+  wrap.appendChild(el("h2",{},["YOUR CONTACT INFO"]));
+  wrap.appendChild(makeField("Full Name",true,null,makeInput("f_name","text","Jane Smith",form.name),"err_name"));
+  const g=div("grid2");
+  g.appendChild(makeField("Phone Number",true,null,makeInput("f_phone","tel","(540) 555-1234",form.phone),"err_phone"));
+  g.appendChild(makeField("Email Address",true,null,makeInput("f_email","email","jane@email.com",form.email),"err_email"));
+  wrap.appendChild(g);
+  wrap.appendChild(makeField("Service Address",true,"Where do you need us to come?",makeInput("f_address","text","123 Main St, Roanoke, VA 24017",form.address),"err_address"));
+  wrap.appendChild(makeField("How did you hear about us?",false,null,makeSelect("f_referral",REFERRALS.map(r=>({v:r,l:r})),form.referral,"Select one...")));
+  return wrap;
+}
+
+// ══════════════════════════════════════════════════════════════════════════
+// STEP 1 — SERVICE
+// ══════════════════════════════════════════════════════════════════════════
+function renderStep1(){
+  const wrap=document.createDocumentFragment();
+  wrap.appendChild(el("h2",{},["SELECT YOUR SERVICE"]));
+
+  // Services
+  const svcField=div("field");
+  svcField.appendChild(el("label",{},["What can we help you with? *"]));
+  SERVICES.forEach(s=>{
+    const btn=div(`option-btn${form.service===s?" selected":""}`);
+    btn.setAttribute("data-svc",s);
+    const radio=div("radio");
+    const info=div("","");
+    info.appendChild(el("div",{class:"otitle"},[s]));
+    info.appendChild(el("div",{class:"odesc"},[SERVICE_DESC[s]]));
+    btn.appendChild(radio);btn.appendChild(info);
+    btn.addEventListener("click",()=>{
+      form.service=s;
+      if(s!=="Dumpster Rental"){form.dumpsterSize="";form.rentalDays="";}
+      renderCustomerView();
+    });
+    svcField.appendChild(btn);
+  });
+  const svcErr=div("err hidden");svcErr.id="err_service";
+  svcField.appendChild(svcErr);
+  wrap.appendChild(svcField);
+
+  // Dumpster options
+  if(form.service==="Dumpster Rental"){
+    // Size
+    const sizeField=div("field");
+    sizeField.appendChild(el("label",{},["Dumpster Size *"]));
+    
+    const sg=div("grid2");
+    SIZES.forEach(sz=>{
+      const btn=div(`size-btn${form.dumpsterSize===sz.id?" selected":""}`);
+      btn.appendChild(el("div",{class:"stitle"},[sz.label]));
+      btn.appendChild(el("div",{class:"sdesc"},[sz.desc]));
+      btn.addEventListener("click",()=>{form.dumpsterSize=sz.id;renderCustomerView();});
+      sg.appendChild(btn);
+    });
+    sizeField.appendChild(sg);
+    const szErr=div("err hidden");szErr.id="err_dumpsterSize";
+    sizeField.appendChild(szErr);
+    wrap.appendChild(sizeField);
+
+    // Days
+    const daysField=div("field");
+    daysField.appendChild(el("label",{},["Rental Period *"]));
+    const dg=div("grid3");
+    RENTAL_DAYS.forEach(opt=>{
+      const p=form.dumpsterSize?PRICING[form.dumpsterSize]?.[String(opt.d)]:null;
+      const btn=div(`day-btn${form.rentalDays===String(opt.d)?" selected":""}`);
+      btn.appendChild(el("div",{class:"dnum"},[String(opt.d)]));
+      btn.appendChild(el("div",{class:"dlabel"},[opt.d===1?"Day":"Days"]));
+      if(p)btn.appendChild(el("div",{class:"dprice"},["$"+p]));
+      btn.addEventListener("click",()=>{form.rentalDays=String(opt.d);renderCustomerView();});
+      dg.appendChild(btn);
+    });
+    daysField.appendChild(dg);
+    const dErr=div("err hidden");dErr.id="err_rentalDays";
+    daysField.appendChild(dErr);
+    wrap.appendChild(daysField);
+
+    // Price notice
+    const price=form.dumpsterSize&&form.rentalDays?PRICING[form.dumpsterSize]?.[form.rentalDays]:null;
+    if(price){
+      wrap.appendChild(div("notice notice-yellow",["💰 Estimated cost: ",el("strong",{},["$"+price]),". Final price confirmed when we call you."]));
+    }
+  }
+
+  // Notes
+  const notesWrap=div("field",""," margin-top:16px");
+  notesWrap.style.marginTop="16px";
+  notesWrap.appendChild(el("label",{},["Tell us what needs to go (optional)"]));
+  notesWrap.appendChild(el("p",{class:"hint"},["The more detail, the better we can prepare!"]));
+  notesWrap.appendChild(makeTextarea("f_notes","E.g. old couch, refrigerator, full garage cleanout...",form.notes));
+  wrap.appendChild(notesWrap);
+
+  // Photos
+  const photoField=div("field");
+  photoField.appendChild(el("label",{},["Upload Photos (optional)"]));
+  photoField.appendChild(el("p",{class:"hint"},["Photos help us give you a more accurate quote"]));
+  const zone=div("upload-zone",["📷  Click to upload photos"]);
+  const fileIn=el("input",{type:"file",accept:"image/*",multiple:"true",style:"display:none",id:"photoInput"});
+  fileIn.addEventListener("change",ev=>{
+    Array.from(ev.target.files).forEach(file=>{
+      const reader=new FileReader();
+      reader.onload=e=>{form.photos.push({name:file.name,url:e.target.result});renderCustomerView();};
+      reader.readAsDataURL(file);
+    });
+  });
+  zone.addEventListener("click",()=>fileIn.click());
+  photoField.appendChild(zone);
+  photoField.appendChild(fileIn);
+  if(form.photos.length){
+    const pg=div("photo-grid");
+    form.photos.forEach((p,i)=>{
+      const thumb=div("photo-thumb");
+      thumb.appendChild(el("img",{src:p.url,alt:p.name}));
+      const del=div("del",["×"]);
+      del.addEventListener("click",ev=>{ev.stopPropagation();form.photos.splice(i,1);renderCustomerView();});
+      thumb.appendChild(del);
+      pg.appendChild(thumb);
+    });
+    photoField.appendChild(pg);
+  }
+  wrap.appendChild(photoField);
+  return wrap;
+}
+
+// ══════════════════════════════════════════════════════════════════════════
+// STEP 2 — SCHEDULE
+// ══════════════════════════════════════════════════════════════════════════
+function renderStep2(){
+  const wrap=document.createDocumentFragment();
+  wrap.appendChild(el("h2",{},["PICK A PREFERRED DATE & TIME"]));
+  wrap.appendChild(el("p",{style:"font-size:13px;color:#6b7280;margin-bottom:20px;line-height:1.6;"},
+    ["We'll do our best to accommodate your request. We'll call or text you within ",el("strong",{},["2 hours"])," to confirm — dates and times may need to be adjusted based on availability."]));
+  wrap.appendChild(makeField("Preferred Date",true,null,makeInput("f_preferredDate","date","",form.preferredDate),"err_preferredDate"));
+  wrap.appendChild(makeField("Preferred Time Window",true,null,makeSelect("f_preferredTime",TIME_SLOTS.map(t=>({v:t.v,l:t.l})),form.preferredTime,"Select a time window..."),"err_preferredTime"));
+  if(form.service==="Dumpster Rental"&&form.preferredDate&&form.rentalDays){
+    const end=fmtDate(addDays(form.preferredDate,parseInt(form.rentalDays)));
+    wrap.appendChild(div("notice notice-green",["📅 Estimated rental window: ",el("strong",{},[fmtDate(form.preferredDate)])," → ",el("strong",{},[end])]));
+  }
+  return wrap;
+}
+
+// ══════════════════════════════════════════════════════════════════════════
+// STEP 3 — REVIEW
+// ══════════════════════════════════════════════════════════════════════════
+function renderStep3(){
+  const wrap=document.createDocumentFragment();
+  wrap.appendChild(el("h2",{},["REVIEW & SUBMIT"]));
+  const rows=[
+    ["Name",form.name],["Phone",form.phone],["Email",form.email],["Address",form.address],
+    ["Service",form.service,true],
+    form.dumpsterSize&&["Dumpster Size",SIZES.find(s=>s.id===form.dumpsterSize)?.label],
+    form.rentalDays&&["Rental Period",form.rentalDays+" Day(s)"],
+    form.dumpsterSize&&form.rentalDays&&["Est. Price","$"+PRICING[form.dumpsterSize]?.[form.rentalDays]],
+    ["Preferred Date",fmtDate(form.preferredDate)],["Preferred Time",form.preferredTime],
+    form.referral&&["Heard from",form.referral],
+    form.notes&&["Notes",form.notes],
+    form.photos.length&&["Photos",form.photos.length+" attached"],
+  ].filter(Boolean);
+  rows.forEach(([l,v,hi])=>{
+    const row=div("review-row");
+    row.appendChild(el("span",{class:"rl"},[l]));
+    row.appendChild(el("span",{class:"rv"+(hi?" hi":"")},[v||"—"]));
+    wrap.appendChild(row);
+  });
+  wrap.appendChild(el("div",{style:"margin-top:20px;",class:"notice notice-green"},
+    ["✅ After submitting, we'll call or text you within ",el("strong",{},["2 hours"])," to confirm. Dates and times are subject to availability — we'll work with you to find the best fit!"]));
+  return wrap;
+}
+
+// ══════════════════════════════════════════════════════════════════════════
+// SUCCESS
+// ══════════════════════════════════════════════════════════════════════════
+function renderSuccess(){
+  const wrap=div("success");
+  wrap.appendChild(div("check",["✓"]));
+  wrap.appendChild(el("h1",{style:"font-size:32px;color:#1a1a1a;margin-bottom:10px;"},["REQUEST RECEIVED!"]));
+  wrap.appendChild(el("p",{style:"color:#6b7280;font-size:15px;line-height:1.7;margin-bottom:20px;"},
+    [`Thanks, ${form.name.split(" ")[0]}! We've received your request and will call or text `,el("strong",{},[form.phone])," within ",el("strong",{},["2 hours"])," to confirm. ",el("strong",{},["Please note: dates and times are subject to availability — we'll work with you to find the best fit."])]));
+  const box=div("notice notice-green",["Questions? Call us: ",el("br",{}),el("a",{href:"tel:5405140853",style:"font-weight:700;color:#2D6A2D;font-size:20px;font-family:'Barlow Condensed',sans-serif;text-decoration:none;"},["(540) 514-0853"])]);
+  box.style.marginBottom="24px";
+  wrap.appendChild(box);
+  const again=el("button",{class:"btn btn-gray",onclick:"location.reload()"},["Submit another request"]);
+  wrap.appendChild(again);
+  const adminLink=el("div",{style:"margin-top:16px;"});
+  const al=el("button",{style:"background:none;border:none;color:#6b7280;font-size:12px;text-decoration:underline;cursor:pointer;"},["Admin Login"]);
+  al.addEventListener("click",renderAdminLogin);
+  adminLink.appendChild(al);
+  wrap.appendChild(adminLink);
+  render(wrap);
+}
+
+// ══════════════════════════════════════════════════════════════════════════
+// CUSTOMER VIEW
+// ══════════════════════════════════════════════════════════════════════════
+function renderCustomerView(){
+  const app=document.getElementById("app");
+  app.innerHTML="";
+
+  const header=div("header");
+  header.appendChild(div("logo",["🚛"]));
+  header.appendChild(el("h1",{style:"font-size:26px;font-weight:800;color:#1a1a1a;margin-top:8px;"},["ROANOKE JUNK REMOVAL"]));
+  header.appendChild(el("p",{},["Request a service — we'll confirm within 2 hours"]));
+  app.appendChild(header);
+
+  const labels=["Contact","Service","Schedule","Review"];
+  app.appendChild(makeSteps(step,labels));
+
+  const card=div("card");
+  const content=document.createDocumentFragment();
+  if(step===0)content.appendChild(renderStep0());
+  if(step===1)content.appendChild(renderStep1());
+  if(step===2)content.appendChild(renderStep2());
+  if(step===3)content.appendChild(renderStep3());
+
+  // Nav buttons
+  const nav=div("btn-nav");
+  if(step>0){
+    const back=el("button",{class:"btn btn-gray"},["← Back"]);
+    back.addEventListener("click",()=>{getForm();step--;renderCustomerView();});
+    nav.appendChild(back);
+  } else {
+    nav.appendChild(div(""));
+  }
+  if(step<3){
+    const next=el("button",{class:"btn btn-green"},["CONTINUE →"]);
+    next.addEventListener("click",()=>{if(validate()){step++;renderCustomerView();}});
+    nav.appendChild(next);
+  } else {
+    const sub=el("button",{class:"btn btn-orange"},["SUBMIT REQUEST ✓"]);
+    sub.addEventListener("click",()=>{
+      if(validate()){
+        getForm();
+        const booking={id:Date.now().toString(),...form,submittedAt:new Date().toISOString(),status:"pending"};
+        bookings.unshift(booking);
+        save("rjr-bookings",bookings);
+        renderSuccess();
+      }
+    });
+    nav.appendChild(sub);
+  }
+  content.appendChild(nav);
+  card.appendChild(content);
+  app.appendChild(card);
+
+  // Admin link
+  const adminWrap=el("div",{style:"text-align:center;margin-top:20px;"});
+  const adminBtn=el("button",{style:"background:none;border:none;color:#6b7280;font-size:12px;text-decoration:underline;cursor:pointer;"},["Admin Login"]);
+  adminBtn.addEventListener("click",renderAdminLogin);
+  adminWrap.appendChild(adminBtn);
+  app.appendChild(adminWrap);
+}
+
+// ══════════════════════════════════════════════════════════════════════════
+// ADMIN LOGIN
+// ══════════════════════════════════════════════════════════════════════════
+function renderAdminLogin(){
+  const wrap=div("",[],"max-width:380px;margin:80px auto 0;padding:0 16px;");
+  const card=div("card",[],"text-align:center;");
+  card.appendChild(el("div",{style:"font-size:48px;margin-bottom:12px;"},["🔒"]));
+  card.appendChild(el("h1",{style:"font-size:24px;margin-bottom:6px;"},["ADMIN LOGIN"]));
+  card.appendChild(el("p",{style:"color:#6b7280;font-size:13px;margin-bottom:20px;"},["Roanoke Junk Removal staff only"]));
+  const pwIn=el("input",{type:"password",placeholder:"Enter password",style:"width:100%;margin-bottom:12px;"});
+  const errMsg=el("p",{style:"color:#dc2626;font-size:13px;margin-bottom:10px;display:none;"},["Incorrect password"]);
+  const loginBtn=el("button",{class:"btn btn-green",style:"width:100%;"},["LOGIN →"]);
+  loginBtn.addEventListener("click",()=>{
+    if(pwIn.value===ADMIN_PW){renderAdminView();}
+    else{errMsg.style.display="block";}
+  });
+  pwIn.addEventListener("keydown",e=>{if(e.key==="Enter")loginBtn.click();});
+  const backBtn=el("button",{style:"margin-top:12px;background:none;border:none;color:#6b7280;font-size:13px;text-decoration:underline;cursor:pointer;"},["← Back to booking form"]);
+  backBtn.addEventListener("click",()=>{step=0;form={name:"",phone:"",email:"",address:"",service:"",dumpsterSize:"",rentalDays:"",preferredDate:"",preferredTime:"",referral:"",notes:"",photos:[]};renderCustomerView();});
+  card.appendChild(pwIn);card.appendChild(errMsg);card.appendChild(loginBtn);card.appendChild(backBtn);
+  wrap.appendChild(card);
+  render(wrap);
+}
+
+// ══════════════════════════════════════════════════════════════════════════
+// ADMIN VIEW
+// ══════════════════════════════════════════════════════════════════════════
+let adminTab="bookings";
+let bookingFilter="all";
+let expandedBooking=null;
+
+function renderAdminView(){
+  const app=document.getElementById("app");
+  app.innerHTML="";
+  const wrap=el("div",{style:"max-width:900px;margin:0 auto;"});
+
+  // Header
+  const hdr=el("div",{style:"display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;"});
+  const left=el("div",{style:"display:flex;align-items:center;gap:10px;"});
+  left.appendChild(el("div",{style:"background:#2D6A2D;border-radius:8px;padding:6px 12px;font-size:20px;"},["⚙️"]));
+  const titles=el("div");
+  titles.appendChild(el("h1",{style:"font-size:22px;margin:0;"},["ADMIN PANEL"]));
+  titles.appendChild(el("p",{style:"font-size:12px;color:#6b7280;margin:0;"},["Roanoke Junk Removal & Dumpster Rental"]));
+  left.appendChild(titles);hdr.appendChild(left);
+  const backBtn=el("button",{class:"btn btn-gray"},["← Customer View"]);
+  backBtn.addEventListener("click",()=>{step=0;renderCustomerView();});
+  hdr.appendChild(backBtn);wrap.appendChild(hdr);
+
+  // Tabs
+  const pending=bookings.filter(b=>b.status==="pending").length;
+  const tabDefs=[{id:"bookings",label:`Bookings${pending>0?` (${pending} new)`:""}`},{id:"dumpsters",label:"Dumpster Fleet"},{id:"calendar",label:"Availability"}];
+  const tabBar=div("tabs");
+  tabDefs.forEach(t=>{
+    const btn=el("button",{class:`tab-btn${adminTab===t.id?" active":""}` },[t.label]);
+    btn.addEventListener("click",()=>{adminTab=t.id;renderAdminView();});
+    tabBar.appendChild(btn);
+  });
+  wrap.appendChild(tabBar);
+
+  const content=div("");
+  if(adminTab==="bookings")content.appendChild(renderBookingsTab());
+  if(adminTab==="dumpsters")content.appendChild(renderDumpstersTab());
+  if(adminTab==="calendar")content.appendChild(renderCalendarTab());
+  wrap.appendChild(content);
+  app.appendChild(wrap);
+}
+
+// ── BOOKINGS TAB ───────────────────────────────────────────────────────────
+function renderBookingsTab(){
+  const wrap=div("");
+  const filters=["all","pending","confirmed","completed","cancelled"];
+  const filterBar=div("filter-bar");
+  filters.forEach(f=>{
+    const count=f==="all"?bookings.length:bookings.filter(b=>b.status===f).length;
+    const btn=el("button",{class:`filter-btn${bookingFilter===f?" active":""}`},[`${f==="all"?"All":f} (${count})`]);
+    btn.style.textTransform="capitalize";
+    btn.addEventListener("click",()=>{bookingFilter=f;renderAdminView();});
+    filterBar.appendChild(btn);
+  });
+  wrap.appendChild(filterBar);
+
+  const filtered=bookings.filter(b=>bookingFilter==="all"||b.status===bookingFilter);
+  if(!filtered.length){
+    const empty=div("",[],"text-align:center;padding:48px 20px;color:#6b7280;");
+    empty.appendChild(el("div",{style:"font-size:36px;margin-bottom:12px;"},["🔔"]));
+    empty.appendChild(el("p",{},["No bookings here yet"]));
+    wrap.appendChild(empty);return wrap;
+  }
+
+  const statusColor={pending:"#d97706",confirmed:"#2D6A2D",cancelled:"#dc2626",completed:"#6b7280"};
+
+  filtered.forEach(b=>{
+    const card=div("booking-card");
+    const hdr=div("booking-header");
+    const info=div("",[],"flex:1;");
+    const top=el("div",{style:"display:flex;align-items:center;gap:8px;margin-bottom:4px;flex-wrap:wrap;"});
+    top.appendChild(el("span",{style:"font-weight:700;font-size:15px;"},[b.name]));
+    top.appendChild(el("span",{class:`badge badge-${b.status}`},[b.status]));
+    info.appendChild(top);
+    const sub=el("div",{style:"font-size:12px;color:#6b7280;display:flex;gap:12px;flex-wrap:wrap;"});
+    sub.appendChild(el("span",{},["🔧 "+b.service]));
+    if(b.dumpsterSize)sub.appendChild(el("span",{},["🗑️ "+SIZES.find(s=>s.id===b.dumpsterSize)?.label]));
+    sub.appendChild(el("span",{},["📅 "+fmtDate(b.preferredDate)]));
+    sub.appendChild(el("span",{},["📞 "+b.phone]));
+    info.appendChild(sub);
+    hdr.appendChild(info);
+    hdr.appendChild(el("span",{style:"color:#6b7280;font-size:18px;"},["›"]));
+    hdr.addEventListener("click",()=>{expandedBooking=expandedBooking===b.id?null:b.id;renderAdminView();});
+    card.appendChild(hdr);
+
+    if(expandedBooking===b.id){
+      const body=div("booking-body");
+      const grid=el("div",{style:"display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px;"});
+      const fields=[["Email",b.email],["Phone",b.phone],["Address",b.address],["Service",b.service],
+        b.dumpsterSize&&["Size",SIZES.find(s=>s.id===b.dumpsterSize)?.label],
+        b.rentalDays&&["Rental",b.rentalDays+" day(s)"],
+        b.dumpsterSize&&b.rentalDays&&["Est. Price","$"+PRICING[b.dumpsterSize]?.[b.rentalDays]],
+        ["Date",fmtDate(b.preferredDate)],["Time",b.preferredTime],
+        b.referral&&["Heard from",b.referral]].filter(Boolean);
+      fields.forEach(([l,v])=>{
+        const f=el("div");
+        f.appendChild(el("div",{style:"font-size:11px;color:#6b7280;margin-bottom:2px;"},[l]));
+        f.appendChild(el("div",{style:"font-size:13px;font-weight:600;"},[v||"—"]));
+        grid.appendChild(f);
+      });
+      body.appendChild(grid);
+      if(b.notes){
+        const nb=el("div",{style:"background:#fff;border-radius:8px;padding:10px 12px;margin-bottom:14px;border:1px solid #d1d5db;"});
+        nb.appendChild(el("div",{style:"font-size:11px;color:#6b7280;margin-bottom:4px;"},["Customer Notes"]));
+        nb.appendChild(el("div",{style:"font-size:13px;"},[b.notes]));
+        body.appendChild(nb);
+      }
+      if(b.photos?.length){
+        const pg=el("div",{style:"display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;"});
+        b.photos.forEach(p=>pg.appendChild(el("img",{src:p.url,alt:p.name,style:"width:80px;height:80px;object-fit:cover;border-radius:8px;border:1px solid #d1d5db;"})));
+        body.appendChild(pg);
+      }
+      const actions=div("");
+      const addAction=(label,color,status)=>{
+        const btn=el("button",{class:"action-btn",style:`background:${color};`},[label]);
+        btn.addEventListener("click",()=>{
+          bookings=bookings.map(bk=>bk.id===b.id?{...bk,status}:bk);
+          save("rjr-bookings",bookings);
+          if(status==="confirmed"&&b.service==="Dumpster Rental"&&b.preferredDate&&b.rentalDays){
+            rentals.push({id:"rental-"+Date.now(),bookingId:b.id,customerName:b.name,customerPhone:b.phone,startDate:b.preferredDate,endDate:addDays(b.preferredDate,parseInt(b.rentalDays)),days:b.rentalDays,address:b.address,dumpsterSize:b.dumpsterSize,status:"active",dumpsterNum:null});
+            save("rjr-rentals",rentals);
+          }
+          expandedBooking=null;renderAdminView();
+        });
+        actions.appendChild(btn);
+      };
+      if(b.status==="pending"){addAction("✓ Confirm","#2D6A2D","confirmed");addAction("✗ Cancel","#dc2626","cancelled");}
+      if(b.status==="confirmed"){addAction("✓ Mark Complete","#6b7280","completed");addAction("✗ Cancel","#dc2626","cancelled");}
+      if(b.status==="cancelled"||b.status==="completed"){addAction("↺ Reopen","#2D6A2D","pending");}
+      body.appendChild(actions);
+      card.appendChild(body);
+    }
+    wrap.appendChild(card);
+  });
+  return wrap;
+}
+
+// ── DUMPSTERS TAB ──────────────────────────────────────────────────────────
+let showAddRental=false;
+let newRental={customerName:"",customerPhone:"",address:"",startDate:todayStr(),days:"1",dumpsterSize:"15yd",dumpsterNum:""};
+
+function renderDumpstersTab(){
+  const wrap=div("");
+  const active=rentals.filter(r=>r.status==="active");
+  const availToday=getAvail(todayStr());
+
+  // Stats
+  const sg=div("stat-grid");
+  [[TOTAL,"Total Dumpsters","#2D6A2D"],[active.length,"Out Right Now",active.length>=TOTAL?"#dc2626":"#e8680a"],[availToday,"Available Today",availToday===0?"#dc2626":"#2D6A2D"]].forEach(([v,l,c])=>{
+    const sc=div("stat-card");
+    sc.appendChild(el("div",{class:"stat-num",style:`color:${c};`},[String(v)]));
+    sc.appendChild(el("div",{class:"stat-label"},[l]));
+    sg.appendChild(sc);
+  });
+  wrap.appendChild(sg);
+
+  // Fleet visual
+  const fleet=div("card",[],"margin-bottom:20px;");
+  fleet.appendChild(el("p",{style:"font-size:13px;font-weight:600;margin-bottom:12px;"},["Fleet Status — Today"]));
+  const fg=div("fleet-grid");
+  for(let i=0;i<TOTAL;i++){
+    const isOut=i<active.length;
+    const fi=div("fleet-item");
+    fi.appendChild(el("div",{style:"font-size:28px;"},["🗑️"]));
+    fi.appendChild(el("div",{style:`font-size:11px;font-weight:700;color:${isOut?"#dc2626":"#2D6A2D"};`},[isOut?"OUT":"IN"]));
+    fi.appendChild(el("div",{style:"font-size:10px;color:#6b7280;"},["#"+(i+1)]));
+    fg.appendChild(fi);
+  }
+  fleet.appendChild(fg);wrap.appendChild(fleet);
+
+  // Add button
+  const addHdr=el("div",{style:"display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;"});
+  addHdr.appendChild(el("h2",{style:"font-size:18px;"},["ACTIVE RENTALS"]));
+  const addBtn=el("button",{class:"btn btn-green",style:"font-size:13px;padding:8px 16px;"},["+ Add Manual Rental"]);
+  addBtn.addEventListener("click",()=>{showAddRental=!showAddRental;renderAdminView();});
+  addHdr.appendChild(addBtn);wrap.appendChild(addHdr);
+
+  // Add form
+  if(showAddRental){
+    const af=div("card",[],"background:#f0f7f0;margin-bottom:16px;border:1px solid rgba(45,106,45,0.2);");
+    af.appendChild(el("h2",{style:"font-size:18px;margin-bottom:14px;"},["ADD RENTAL MANUALLY"]));
+    const ag=div("grid2");
+    const nrInputs=[["customerName","text","Customer Name *",""],["customerPhone","tel","Phone",""],["address","text","Delivery Address",""]];
+    nrInputs.forEach(([k,t,ph])=>{
+      const f=div("field");
+      f.appendChild(el("label",{},[ph]));
+      const inp=el("input",{type:t,placeholder:ph,id:"nr_"+k,value:newRental[k]||""});
+      f.appendChild(inp);ag.appendChild(f);
+    });
+    // Size
+    const sf=div("field");sf.appendChild(el("label",{},["Dumpster Size"]));
+    const sSel=makeSelect("nr_dumpsterSize",SIZES.map(s=>({v:s.id,l:s.label})),newRental.dumpsterSize);
+    sf.appendChild(sSel);ag.appendChild(sf);
+    // Dumpster #
+    const df=div("field");df.appendChild(el("label",{},["Dumpster #"]));
+    const dSel=makeSelect("nr_dumpsterNum",[...Array(TOTAL)].map((_,i)=>({v:String(i+1),l:`Dumpster #${i+1}`})),newRental.dumpsterNum,"Assign...");
+    df.appendChild(dSel);ag.appendChild(df);
+    // Date
+    const dtf=div("field");dtf.appendChild(el("label",{},["Start Date *"]));
+    dtf.appendChild(el("input",{type:"date",id:"nr_startDate",value:newRental.startDate,style:"width:100%;padding:10px 14px;border-radius:8px;border:1.5px solid #d1d5db;font-family:'Karla',sans-serif;font-size:14px;"}));
+    ag.appendChild(dtf);
+    // Days
+    const dyf=div("field");dyf.appendChild(el("label",{},["Rental Period"]));
+    dyf.appendChild(makeSelect("nr_days",RENTAL_DAYS.map(o=>({v:String(o.d),l:`${o.d} Day${o.d>1?"s":""}`})),newRental.days));
+    ag.appendChild(dyf);
+    af.appendChild(ag);
+    const actions=div("",[],"margin-top:4px;display:flex;gap:8px;");
+    const saveBtn=el("button",{class:"action-btn",style:"background:#2D6A2D;"},["✓ Add Rental"]);
+    saveBtn.addEventListener("click",()=>{
+      newRental.customerName=document.getElementById("nr_customerName")?.value||"";
+      newRental.customerPhone=document.getElementById("nr_customerPhone")?.value||"";
+      newRental.address=document.getElementById("nr_address")?.value||"";
+      newRental.dumpsterSize=document.getElementById("nr_dumpsterSize")?.value||"15yd";
+      newRental.dumpsterNum=document.getElementById("nr_dumpsterNum")?.value||"";
+      newRental.startDate=document.getElementById("nr_startDate")?.value||todayStr();
+      newRental.days=document.getElementById("nr_days")?.value||"1";
+      if(!newRental.customerName||!newRental.startDate){alert("Please fill in required fields.");return;}
+      rentals.push({...newRental,id:Date.now().toString(),endDate:addDays(newRental.startDate,parseInt(newRental.days)),status:"active"});
+      save("rjr-rentals",rentals);
+      showAddRental=false;
+      newRental={customerName:"",customerPhone:"",address:"",startDate:todayStr(),days:"1",dumpsterSize:"15yd",dumpsterNum:""};
+      renderAdminView();
+    });
+    const cancelBtn=el("button",{class:"action-btn",style:"background:#6b7280;"},["Cancel"]);
+    cancelBtn.addEventListener("click",()=>{showAddRental=false;renderAdminView();});
+    actions.appendChild(saveBtn);actions.appendChild(cancelBtn);af.appendChild(actions);
+    wrap.appendChild(af);
+  }
+
+  // Active rentals list
+  if(!active.length){
+    const empty=div("card",[],"text-align:center;padding:40px 20px;color:#6b7280;");
+    empty.appendChild(el("div",{style:"font-size:36px;margin-bottom:8px;"},["🗑️"]));
+    empty.appendChild(el("p",{},["All dumpsters are home! No active rentals."]));
+    wrap.appendChild(empty);return wrap;
+  }
+  active.forEach(r=>{
+    const isLate=r.endDate<todayStr(),isDueToday=r.endDate===todayStr();
+    const sizeLabel=SIZES.find(s=>s.id===r.dumpsterSize)?.label||"";
+    const card=el("div",{style:`background:#fff;border-radius:12px;padding:14px 16px;border:1px solid ${isLate?"#fca5a5":"#d1d5db"};display:flex;align-items:flex-start;gap:12px;margin-bottom:10px;`});
+    card.appendChild(el("div",{style:"font-size:28px;flex-shrink:0;"},["🗑️"]));
+    const info=div("",[],"flex:1;");
+    const top=el("div",{style:"display:flex;align-items:center;gap:8px;margin-bottom:4px;flex-wrap:wrap;"});
+    top.appendChild(el("span",{style:"font-weight:700;font-size:14px;"},[r.customerName]));
+    if(r.dumpsterNum)top.appendChild(el("span",{style:"font-size:11px;background:#f0f7f0;color:#2D6A2D;padding:2px 8px;border-radius:10px;font-weight:700;"},["#"+r.dumpsterNum]));
+    if(sizeLabel)top.appendChild(el("span",{style:"font-size:11px;background:#f3f4f6;color:#6b7280;padding:2px 8px;border-radius:10px;font-weight:700;"},[sizeLabel]));
+    if(isLate)top.appendChild(el("span",{style:"font-size:11px;background:#fef2f2;color:#dc2626;padding:2px 8px;border-radius:10px;font-weight:700;"},["OVERDUE"]));
+    if(isDueToday&&!isLate)top.appendChild(el("span",{style:"font-size:11px;background:#fffbeb;color:#d97706;padding:2px 8px;border-radius:10px;font-weight:700;"},["DUE TODAY"]));
+    info.appendChild(top);
+    const sub=el("div",{style:"font-size:12px;color:#6b7280;display:flex;gap:12px;flex-wrap:wrap;"});
+    sub.appendChild(el("span",{},["📅 Out: "+fmtDate(r.startDate)]));
+    sub.appendChild(el("span",{},["↩ Due: "+fmtDate(r.endDate)]));
+    if(r.address)sub.appendChild(el("span",{},["📍 "+r.address]));
+    if(r.customerPhone)sub.appendChild(el("span",{},["📞 "+r.customerPhone]));
+    info.appendChild(sub);card.appendChild(info);
+    const btns=el("div",{style:"display:flex;gap:6px;flex-shrink:0;"});
+    const retBtn=el("button",{style:"padding:6px 12px;border-radius:8px;border:none;background:#2D6A2D;color:#fff;font-weight:600;font-size:12px;cursor:pointer;"},["✓ Returned"]);
+    retBtn.addEventListener("click",()=>{rentals=rentals.map(x=>x.id===r.id?{...x,status:"returned"}:x);save("rjr-rentals",rentals);renderAdminView();});
+    const canBtn=el("button",{style:"padding:6px 10px;border-radius:8px;border:1px solid #d1d5db;background:#fff;color:#dc2626;font-weight:600;font-size:12px;cursor:pointer;"},["✗"]);
+    canBtn.addEventListener("click",()=>{rentals=rentals.map(x=>x.id===r.id?{...x,status:"cancelled"}:x);save("rjr-rentals",rentals);renderAdminView();});
+    btns.appendChild(retBtn);btns.appendChild(canBtn);card.appendChild(btns);
+    wrap.appendChild(card);
+  });
+  return wrap;
+}
+
+// ── CALENDAR TAB ───────────────────────────────────────────────────────────
+let calDate=new Date();
+function renderCalendarTab(){
+  const wrap=div("card");
+  const year=calDate.getFullYear(),month=calDate.getMonth();
+  const firstDay=new Date(year,month,1).getDay();
+  const daysInMonth=new Date(year,month+1,0).getDate();
+  const monthName=calDate.toLocaleDateString("en-US",{month:"long",year:"numeric"});
+  const todStr=todayStr();
+  const active=rentals.filter(r=>r.status!=="cancelled"&&r.status!=="returned");
+
+  const nav=el("div",{style:"display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;"});
+  const prev=el("button",{style:"padding:8px 14px;border-radius:8px;border:1px solid #d1d5db;background:#fff;font-size:16px;cursor:pointer;"},["←"]);
+  prev.addEventListener("click",()=>{calDate=new Date(year,month-1);renderAdminView();});
+  const next=el("button",{style:"padding:8px 14px;border-radius:8px;border:1px solid #d1d5db;background:#fff;font-size:16px;cursor:pointer;"},["→"]);
+  next.addEventListener("click",()=>{calDate=new Date(year,month+1);renderAdminView();});
+  nav.appendChild(prev);
+  nav.appendChild(el("h2",{style:"font-size:22px;"},[monthName]));
+  nav.appendChild(next);
+  wrap.appendChild(nav);
+
+  const dayHdr=div("cal-grid");
+  ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"].forEach(d=>{
+    dayHdr.appendChild(el("div",{style:"text-align:center;font-size:11px;font-weight:700;color:#6b7280;padding:4px 0;"},[d]));
+  });
+  wrap.appendChild(dayHdr);
+
+  const grid=div("cal-grid",[],"margin-top:4px;");
+  for(let i=0;i<firstDay;i++)grid.appendChild(div(""));
+  for(let d=1;d<=daysInMonth;d++){
+    const dateStr=`${year}-${String(month+1).padStart(2,"0")}-${String(d).padStart(2,"0")}`;
+    const avail=getAvail(dateStr);
+    const isToday=dateStr===todStr,isPast=dateStr<todStr;
+    const allOut=avail===0,almostOut=avail<=2&&avail>0;
+    let bg="#fff",dotColor="#2D6A2D";
+    if(isPast){bg="#f9fafb";dotColor=null;}
+    else if(allOut){bg="#fef2f2";dotColor="#dc2626";}
+    else if(almostOut){bg="#fffbeb";dotColor="#d97706";}
+    const cell=el("div",{style:`padding:8px 4px;border-radius:8px;background:${isToday?"#f0f7f0":bg};border:${isToday?"2px solid #2D6A2D":"1px solid #f3f4f6"};text-align:center;min-height:52px;`});
+    cell.appendChild(el("div",{style:`font-size:13px;font-weight:${isToday?700:500};color:${isToday?"#2D6A2D":isPast?"#d1d5db":"#1a1a1a"};`},[String(d)]));
+    if(!isPast)cell.appendChild(el("div",{style:`font-size:11px;font-weight:700;color:${dotColor};margin-top:2px;`},[allOut?"Full":`${avail}/7`]));
+    grid.appendChild(cell);
+  }
+  wrap.appendChild(grid);
+
+  const legend=el("div",{style:"display:flex;gap:16px;margin-top:16px;flex-wrap:wrap;"});
+  [{c:"#2D6A2D",l:"Available"},{c:"#d97706",l:"Almost full"},{c:"#dc2626",l:"Fully booked"}].forEach(({c,l})=>{
+    const item=el("div",{style:"display:flex;align-items:center;gap:6px;"});
+    item.appendChild(el("div",{style:`width:10px;height:10px;border-radius:50%;background:${c};`}));
+    item.appendChild(el("span",{style:"font-size:12px;color:#6b7280;"},[l]));
+    legend.appendChild(item);
+  });
+  wrap.appendChild(legend);
+  return wrap;
+}
+
+// ── START ──────────────────────────────────────────────────────────────────
+renderCustomerView();
+</script>
+</body>
+</html>
