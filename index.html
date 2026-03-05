@@ -204,7 +204,7 @@ let step=0;
 function getForm(){
   ["name","phone","email","address","referral","notes","preferredDate","preferredTime"].forEach(k=>{
     const el=document.getElementById("f_"+k);
-    if(el)form[k]=el.value;
+    if(el&&el.value!==undefined)form[k]=el.value;
   });
 }
 
@@ -474,13 +474,10 @@ function renderCustomerView(){
   } else {
     const sub=el("button",{class:"btn btn-orange"},["SUBMIT REQUEST ✓"]);
     sub.addEventListener("click",()=>{
-      if(validate()){
-        getForm();
-        const booking={id:Date.now().toString(),...form,submittedAt:new Date().toISOString(),status:"pending"};
-        bookings.unshift(booking);
-        save("rjr-bookings",bookings);
-        renderSuccess();
-      }
+      const booking={id:Date.now().toString(),...form,submittedAt:new Date().toISOString(),status:"pending"};
+      bookings.unshift(booking);
+      save("rjr-bookings",bookings);
+      renderSuccess();
     });
     nav.appendChild(sub);
   }
